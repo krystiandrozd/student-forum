@@ -1,0 +1,51 @@
+<h1>Main Page</h1>
+
+<p>
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+</p>
+
+<p>
+  <%= Time.now %>
+</p>
+
+<h2>Student list</h2>
+<ul>
+  <% @students.each do |student| %>
+    <%= link_to student do %>
+      <li><%= student.name %> <%= student.index %></li>
+    <% end %>
+  <% end %>
+</ul>
+
+<h2>Forum</h2>
+
+<% @courses.each do |course| %>
+  <h3>
+    <%= link_to course do %>
+      <%= course.name %>
+    <% end %>
+  </h3>
+  <div>
+      <% (getTopicsByCourseId course.id).each do |topic| %>
+        <h4>
+          <%= link_to topic do %>
+            <%= topic.title %>
+          <% end %>
+          by
+          <%= link_to topic.student do %>
+            <%= topic.student.name %>
+          <% end %>
+        </h4>
+        <div>
+          <% (getPostsByTopicId topic.id).each do |post| %>
+            <p>
+              <%= link_to post.student do %>
+                <%= post.student.name %>:
+              <% end %>
+              <%= post.body %>
+            </p>
+          <% end %>
+        </div>
+      <% end %>
+  </div>
+<% end %>
